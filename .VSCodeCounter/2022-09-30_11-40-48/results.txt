@@ -1,0 +1,37 @@
+Date : 2022-09-30 11:40:48
+Directory : /home/sycuryx/dev/repos/github/jessenich/docker-microsoft-graph-explorer
+Total : 7 files,  244 codes, 18 comments, 53 blanks, all 315 lines
+
+Languages
++----------+------------+------------+------------+------------+------------+
+| language | files      | code       | comment    | blank      | total      |
++----------+------------+------------+------------+------------+------------+
+| YAML     |          5 |        202 |         18 |         41 |        261 |
+| Ignore   |          1 |         28 |          0 |          1 |         29 |
+| Markdown |          1 |         14 |          0 |         11 |         25 |
++----------+------------+------------+------------+------------+------------+
+
+Directories
++------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                                   | files      | code       | comment    | blank      | total      |
++------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                                      |          7 |        244 |         18 |         53 |        315 |
+| .azure-pipelines                                                                                                       |          1 |         31 |          0 |          9 |         40 |
+| .github                                                                                                                |          3 |        128 |          8 |         23 |        159 |
+| .github/workflows                                                                                                      |          2 |        118 |          4 |         20 |        142 |
+| docs                                                                                                                   |          1 |         14 |          0 |         11 |         25 |
++------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++------------------------------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| filename                                                                                                               | language | code       | comment    | blank      | total      |
++------------------------------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| /home/sycuryx/dev/repos/github/jessenich/docker-microsoft-graph-explorer/.azure-pipelines/buikd-push-docker-image.yaml | YAML     |         31 |          0 |          9 |         40 |
+| /home/sycuryx/dev/repos/github/jessenich/docker-microsoft-graph-explorer/.dockerignore                                 | Ignore   |         28 |          0 |          1 |         29 |
+| /home/sycuryx/dev/repos/github/jessenich/docker-microsoft-graph-explorer/.github/dependabot.yml                        | YAML     |         10 |          4 |          3 |         17 |
+| /home/sycuryx/dev/repos/github/jessenich/docker-microsoft-graph-explorer/.github/workflows/devskim-analysis.yml        | YAML     |         25 |          4 |          6 |         35 |
+| /home/sycuryx/dev/repos/github/jessenich/docker-microsoft-graph-explorer/.github/workflows/push-docker-image.yml       | YAML     |         93 |          0 |         14 |        107 |
+| /home/sycuryx/dev/repos/github/jessenich/docker-microsoft-graph-explorer/.gitpod.yml                                   | YAML     |         43 |         10 |          9 |         62 |
+| /home/sycuryx/dev/repos/github/jessenich/docker-microsoft-graph-explorer/docs/stats-sources-dashboard-widget-data.md   | Markdown |         14 |          0 |         11 |         25 |
+| Total                                                                                                                  |          |        244 |         18 |         53 |        315 |
++------------------------------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+

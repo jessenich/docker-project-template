@@ -1,0 +1,106 @@
+name: "Push Docker Image"
+
+on:
+  push:
+    tags:
+      - "v*"
+
+env:
+  TARGET_PLATFORMS: linux/amd64,linux/arm64/v8,linux/arm/v7
+
+  GHCR_URL: ghcr.io
+  GHCR_LIBRARY: jessenich
+  GHCR_REPO: alpine
+  DOCKERHUB_LIBRARY: jessenich91
+  DOCKERHUB_REPO: alpine
+  LABELS: |
+    maintainer=Jesse N. <jesse@keplerdev.com>
+    org.opencontainers.image.source=https://github.com/jessenich/docker-alpine/
+
+jobs:
+  build-docker-image:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        alpine-version: [ '3.13', '3.14' ]
+        target: [ 'root', 'sudo' ]
+
+    name: "Build Alpine Version: ${{ matrix.alpine-version }} | Stage: ${{ matrix.target }}"
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+
+      - name: Setup Docker Buildx
+        uses: docker/setup-buildx-action@v1
+        with:
+            version: latest
+            install: true
+            driver-opts: image=moby/buildkit:master
+            use: true
+
+      - name: Cache Docker layers
+        uses: actions/cache@v2
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-buildx-
+
+      - name: Login to Dockerhub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Login to ghcr.io
+        uses: docker/login-action@v1
+        with:
+          registry: ${{ env.GHCR_URL }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v3
+        env:
+          version: "${{ matrix.alpine-version }}"
+          target: "${{ matrix.target }}"
+        with:
+          github-token:  ${{ secrets.GITHUB_TOKEN }}
+          labels: ${{ env.LABELS }}
+          images: |
+            "docker.io/${{ env.DOCKERHUB_LIBRARY }}/${{ env.DOCKERHUB_REPO }}"
+            "ghcr.io/${{ env.GHCR_LIBRARY }}/${{ env.GHCR_REPO }}"
+          tags: |
+            type=raw,enable=${{ env.target == 'root' && env.version == '3.14' }},priority=100,value=latest
+            type=raw,enable=${{ env.version == '3.14' }},priority=100,value=${{ env.target }}
+            type=raw,enable=true,priority=200,value=${{ env.target }}.${{ env.version }}
+            type=semver,enable=${{ env.target == 'root' }},priority=300,pattern={{major}}.{{minor}}.{{patch}},suffix=-${{ env.version }}
+            type=semver,enable=${{ env.target == 'root' }},priority=400,pattern={{major}}.{{minor}}.{{patch}},suffix=-root.${{ env.version }}
+            type=semver,enable=${{ env.target == 'sudo' }},priority=300,pattern={{major}}.{{minor}}.{{patch}},suffix=-sudo.${{ env.version }}
+          flavor: latest=false
+
+      - name: Build & Push Latest
+        uses: docker/build-push-action@v2
+        env:
+          platforms: "${{ env.TARGET_PLATFORMS }}"
+        with:
+          context: .
+          file: ./Dockerfile
+          labels: ${{ steps.meta.output.labels }}
+          target: ${{ matrix.target }}
+          build-args: |
+            VARIANT=${{ matrix.alpine-version }}
+            NON_ROOT_ADMIN=sysadm
+            TZ=America/New_York
+          platforms: ${{ env.platforms }}
+          pull: true
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}

@@ -1,0 +1,9 @@
+"filename", "language", "Ignore", "Markdown", "YAML", "comment", "blank", "total"
+"/home/sycuryx/dev/repos/github/jessenich/docker-microsoft-graph-explorer/.azure-pipelines/buikd-push-docker-image.yaml", "YAML", 0, 0, 31, 0, 9, 40
+"/home/sycuryx/dev/repos/github/jessenich/docker-microsoft-graph-explorer/.dockerignore", "Ignore", 28, 0, 0, 0, 1, 29
+"/home/sycuryx/dev/repos/github/jessenich/docker-microsoft-graph-explorer/.github/dependabot.yml", "YAML", 0, 0, 10, 4, 3, 17
+"/home/sycuryx/dev/repos/github/jessenich/docker-microsoft-graph-explorer/.github/workflows/devskim-analysis.yml", "YAML", 0, 0, 25, 4, 6, 35
+"/home/sycuryx/dev/repos/github/jessenich/docker-microsoft-graph-explorer/.github/workflows/push-docker-image.yml", "YAML", 0, 0, 93, 0, 14, 107
+"/home/sycuryx/dev/repos/github/jessenich/docker-microsoft-graph-explorer/.gitpod.yml", "YAML", 0, 0, 43, 10, 9, 62
+"/home/sycuryx/dev/repos/github/jessenich/docker-microsoft-graph-explorer/docs/stats-sources-dashboard-widget-data.md", "Markdown", 0, 14, 0, 0, 11, 25
+"Total", "-", 28, 14, 202, 18, 53, 315
