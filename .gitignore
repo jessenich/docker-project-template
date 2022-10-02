@@ -478,5 +478,5 @@ zsdoc/data
 !build/**
 
 **.secrets
-secre
+secrets
 !.gitkeep

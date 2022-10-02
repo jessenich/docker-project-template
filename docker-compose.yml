@@ -15,7 +15,7 @@ services:
         - TZ=${TZ}
       tags:
         - latest
-        - gitTagVersion
+        - ${GIT_TAG}
     ports:
       - 3000:3000
       - 3001:3001/tcp
