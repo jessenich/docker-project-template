@@ -1,0 +1,56 @@
+version: '3.9'
+
+services:
+  templated_image:
+    container_name: named_container
+    hostname: named_host
+    image: localhost:9999/template/image:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: template_target
+      args:
+        - ARG1=${ARG1}
+        - ARG2=${ARG2}
+        - TZ=${TZ}
+      tags:
+        - latest
+        - gitTagVersion
+    ports:
+      - 3000:3000
+      - 3001:3001/tcp
+    volumes:
+      # Host bound readonly volume
+      - /etc/timezone:/etc/timezone:ro
+
+      # Read write volume
+      - template_data:/data
+
+    environment:
+      - ENV1=${ENV1}
+      - ENV2=${ENV2}
+
+    networks:
+      - default_template_network
+
+  db:
+    image: mysql:latest
+    ports:
+      - '3306:3306'
+    volumes:
+      - './db:/var/lib/mysql'
+    environment:
+      MYSQL_ROOT_PASSWORD: 'root'
+      MYSQL_DATABASE: 'db'
+      MYSQL_USER: 'user'
+      MYSQL_PASSWORD: 'password'
+    networks:
+      - default_template_network
+
+networks:
+  default_template_network:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.254.254.0/24

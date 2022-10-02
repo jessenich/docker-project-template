@@ -1,0 +1,10 @@
+version: '3.9'
+
+services:
+  templated_image:
+    image: templated_image
+    build:
+      context: .
+      # Overridce with dev dockerfile
+      dockerfile: Dockerfile.dev
+
